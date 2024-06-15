@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+		integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/datepicker.min.js"></script>
+	<style>
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+
+
+<body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
+	<div
+		class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
+		<div class="max-w-8xl mx-auto">
+			<div class="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 mx-4 lg:mx-0">
+				<div class="relative flex items-center">
+					<a class="mr-3 flex" href="/"><img class="h-12 mr-6
+    " src="https://upload.wikimedia.org/wikipedia/commons/f/fc/UPC_logo_transparente.png"><span
+							class="self-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Sistema
+							de Automatizacion Contable</span></a>
+					<div class="relative hidden lg:flex items-center ml-auto">
+						<nav class="text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
+							<ul class="flex space-x-8">
+								<li>Usuario: <span sec:authentication="name"></span> </li>
+								<li>
+									<form th:action="@{/logout}" method="post" style="display:inline"><input
+											class="hover:text-sky-500 dark:hover:text-sky-40" type="submit"
+											value="Cerrar Sesión" /></form>
+								</li>
+							</ul>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="flex">
+
+		<aside id="default-sidebar"
+			class="top-0 left-0 z-40 w-70 h-screen transition-transform -translate-x-full sm:translate-x-0"
+			aria-label="Sidebar">
+			<div class="h-full px-3 py-4 overflow-y-auto bg-blue-50 dark:bg-blue-800">
+				<ul class="space-y-2 font-medium">
+					<li>
+						<a th:href="@{'/user/A/index'}"
+							class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-blue-900 hover:text-white dark:hover:bg-blue-900 group"
+							th:classappend="${nombre == 'A' ? 'bg-blue-900 text-white' : ''}">
+							<span class="flex-1 ml-3 whitespace-nowrap">Pagos</span>
+
+						</a>
+					</li>
+					<li>
+						<a th:href="@{'/user/B/index'}"
+							class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-blue-900 hover:text-white dark:hover:bg-blue-900 group"
+							th:classappend="${nombre != 'A' ? 'bg-blue-900 text-white' : ''}">
+
+							<span class="flex-1 ml-3 whitespace-nowrap">Facturas</span>
+						</a>
+					</li>
+					<li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+						<a th:href="@{'/user/users'}"
+							class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-blue-900 hover:text-white dark:hover:bg-blue-900 group"
+							th:classappend="${nombre == 'C' ? 'bg-blue-900 text-white' : ''}">
+
+							<span class="flex-1 ml-3 whitespace-nowrap">Usuarios</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+		<main class="w-full  bg-gray-100 dark:bg-gray-800">
+			<div class="px-3 py-4 overflow-y-auto">
+				<form action="#" th:action="@{/planilla}" th:object="${planillaRequest}" method="post">
+					<div date-rangepicker class="flex items-center">
+						<div class="relative">
+							<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+								<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+									xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+									<path
+										d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+								</svg>
+							</div>
+							<input type="text" th:field="*{fechaIn}"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								placeholder="Seleccionar Fecha de Inicio">
+						</div>
+						<span class="mx-4 text-gray-500">A</span>
+						<div class="relative">
+							<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+								<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+									xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+									<path
+										d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+								</svg>
+							</div>
+							<input th:field="*{fechaFn}" type="text"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								placeholder="Seleccionar Fecha Final">
+
+
+						</div>
+						<div class="mx-4 text-gray-500">
+							<button type="submit"
+								class="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+								name="search">Buscar</button>
+						</div>
+					</div>
+					<div class="mx-4 text-red-500" th:if="${#fields.hasErrors('fechaIn')}">
+						<p th:errorclass="error" th:errors="*{fechaIn}" />
+					</div>
+					<div class="mx-4 text-red-500" th:if="${#fields.hasErrors('fechaFn')}">
+						<p th:errorclass="error" th:errors="*{fechaFn}" />
+					</div>
+					<div class="mx-4 text-red-500" th:if="${#fields.hasErrors('global')}">
+						<p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
+					</div>
+
+
+			</div>
+
+			</form>
+			<div th:each="planilla: ${planillas}"
+				class="mt-2 px-3 py-4 rounded-lg border-green-300 bg-blue-900 text-medium text-gray-50">
+				<span>Código: </span>
+				<span class="ml-1 font-semibold" th:text="${planilla.EjecucionId}" />
+				<span class="ml-4">Usuario: </span>
+				<span class="ml-1 font-semibold" th:text="${planilla.Documento}" />
+				<span class="ml-4 ">Fecha Ejecucion: </span>
+				<span class="ml-1 font-semibold"
+					th:text="${#dates.format(planilla.FechaProcesada, 'yyyy-MM-dd hh:mm a')}" />
+				<span class="ml-4">Duracion (s): </span>
+				<span class="ml-1 font-semibold" th:text="${planilla.DuracionSegundos}" />
+				<span
+					class="ml-4 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"><a
+						th:href="${planilla.Ruta}"> Descargar Planilla de Pagos</a> </span>
+				<span
+					class="ml-4 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"><a
+						th:href="${planilla.Ruta2}">Descargar Txt con Montos a Pagar</a> </span>
+			</div>
+
+	</div>
+	</main>
+	</div>
+</body>
+
+</html>

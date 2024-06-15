@@ -1,0 +1,92 @@
+/****** Object:  Table [dbo].[authorities]    Script Date: 14/06/2024 14:20:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[authorities](
+	[username] [varchar](50) NOT NULL,
+	[authority] [varchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PasswordResetToken]    Script Date: 14/06/2024 14:20:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PasswordResetToken](
+	[id] [int] NULL,
+	[token] [varchar](255) NULL,
+	[username] [varchar](50) NULL,
+	[expirydate] [datetime] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Planilla]    Script Date: 14/06/2024 14:20:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Planilla](
+	[PlanillaId] [int] NOT NULL,
+	[Ruta] [varchar](255) NULL,
+	[FechaProcesada] [datetime] NULL,
+	[EjecucionId] [varchar](150) NULL,
+	[Documento] [varchar](25) NULL,
+	[DuracionSegundos] [int] NULL,
+	[Ruta2] [varchar](255) NULL,
+	[Tipo] [varchar](1) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PlanillaId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[users]    Script Date: 14/06/2024 14:20:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[users](
+	[username] [varchar](50) NOT NULL,
+	[password] [varchar](500) NOT NULL,
+	[enabled] [bit] NOT NULL,
+	[firstname] [varchar](255) NULL,
+	[lastname] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[username] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[authorities] ([username], [authority]) VALUES (N'borrar@gmail.com', N'ROLE_USER')
+GO
+INSERT [dbo].[authorities] ([username], [authority]) VALUES (N'desactivar@gmail.com', N'ROLE_USER')
+GO
+INSERT [dbo].[authorities] ([username], [authority]) VALUES (N'Desarrollo_Contable@outlook.com', N'ROLE_ADMIN')
+GO
+INSERT [dbo].[authorities] ([username], [authority]) VALUES (N'Gianmarco@inconcert.com', N'ROLE_ADMIN')
+GO
+INSERT [dbo].[authorities] ([username], [authority]) VALUES (N'sebas13.scl@gmail.com', N'ROLE_ADMIN')
+GO
+INSERT [dbo].[authorities] ([username], [authority]) VALUES (N'cerrarsesion@gmail.com', N'ROLE_USER')
+GO
+INSERT [dbo].[authorities] ([username], [authority]) VALUES (N'validarregistros@gmail.com', N'ROLE_USER')
+GO
+INSERT [dbo].[users] ([username], [password], [enabled], [firstname], [lastname]) VALUES (N'borrar@gmail.com', N'{bcrypt}$2a$10$YYZzWoBpQz.UKc.dER2Ff.eohtOWXpN4nWgvQmMYJYepFZZHR6qN6', 1, N'Borrar', N'Borrar')
+GO
+INSERT [dbo].[users] ([username], [password], [enabled], [firstname], [lastname]) VALUES (N'cerrarsesion@gmail.com', N'{bcrypt}$2a$10$5lqNPwgoPl5E6VndZ4RHQ.O0v2wxbiUNUqRWT3U2UU9fIU2zQIiZG', 1, N'Gustavo', N'Amparo')
+GO
+INSERT [dbo].[users] ([username], [password], [enabled], [firstname], [lastname]) VALUES (N'desactivar@gmail.com', N'{bcrypt}$2a$10$JA3/ocqwlOP0uFb5ss4bjuSnFYJWZVuL5e7h5aLtUm/kx.gQuGMyK', 1, N'desactivar', N'desactivar')
+GO
+INSERT [dbo].[users] ([username], [password], [enabled], [firstname], [lastname]) VALUES (N'Desarrollo_Contable@outlook.com', N'{bcrypt}$2a$10$iqQnOPr6skjTJalz7chEdeZESMxLFCixOkWzQyjmHPiMt1yOhV6GS', 1, N'Pruebas', N'Pruebas ')
+GO
+INSERT [dbo].[users] ([username], [password], [enabled], [firstname], [lastname]) VALUES (N'Gianmarco@inconcert.com', N'{bcrypt}$2a$10$mr/XFDK9TTJidoUe.zUmauHU/hguyNrFP5mnnm7s7VAABXDcVIOtS', 1, N'Gianmarco', N'Sanchez')
+GO
+INSERT [dbo].[users] ([username], [password], [enabled], [firstname], [lastname]) VALUES (N'sebas13.scl@gmail.com', N'{bcrypt}$2a$10$5Q5YJAUOWFefZzx2TQzBH.j181eCxc98Ge8b/FtyPLNHkExovxv5e', 1, N'Sebastian', N'Cavero')
+GO
+INSERT [dbo].[users] ([username], [password], [enabled], [firstname], [lastname]) VALUES (N'validarregistros@gmail.com', N'{bcrypt}$2a$10$LLCavPy.5al73kzxRI9aOOFcuTvAvuNx5aGeJsiig4LBovi/Ozny.', 1, N'validar', N'registros')
+GO
+ALTER TABLE [dbo].[authorities]  WITH CHECK ADD  CONSTRAINT [fk_authorities_users] FOREIGN KEY([username])
+REFERENCES [dbo].[users] ([username])
+GO
+ALTER TABLE [dbo].[authorities] CHECK CONSTRAINT [fk_authorities_users]
+GO

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+		integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/datepicker.min.js"></script>
+</head>
+
+<body>
+	<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+         <!-- <img class="w-8 h-8 mr-2" src="" alt="logo">-->
+         Bienvenido al Sistema de Automatizacion Contable
+      </a>
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  Inicia sesión con tu cuenta
+              </h1>
+              <form class="space-y-4 md:space-y-6" th:action="@{/login}" method="post">
+              <p th:if="${param.error}" class="text-rose-800 font-bold text-center">Credenciales incorrectas.</p>
+              <p th:if="${tokenmessage}" class="text-rose-800 font-bold text-center" th:text="${tokenmessage}">token</p>
+              
+                  <div>
+                      <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tu correo electrónico</label>
+                      <input type="text" id="username" name="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                  </div>
+                  <div>
+                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                      <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                  </div>
+                  <div class="flex items-center justify-between">
+                      <div class="flex items-start">
+                          <div class="flex items-center h-5">
+                            
+                          </div>
+                          <div class="ml-3 text-sm">
+                      
+                          </div>
+                      </div>
+                      <a th:href="@{'/user/resetPassword'}" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">¿Olvidaste tu contraseña?</a>
+                  </div>
+                  <button type="submit" class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Iniciar Sesión</button>
+                  <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                      
+                  </p>
+              </form>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- 
+	<h1>Login page</h1>
+	<p>Example administrator: jim / demo</p>
+	<p>Example user: bob / demo</p>
+	<p>Example user and administrator: ted / demo</p>
+	<p th:if="${loginError}" class="error">Wrong user or password</p>
+	<form th:action="@{/login}" method="post">
+		<label for="username">Username</label>:
+		<input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+		<label for="password">Password</label>:
+		<input type="password" id="password" name="password" /> <br />
+		<input type="submit" value="Log in" />
+	</form>
+	<p><a href="../index" th:href="@{/index}">Back to home page</a></p>
+	-->
+</body>
+
+</html>

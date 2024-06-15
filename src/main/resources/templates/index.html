@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+		integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/datepicker.min.js"></script>
+</head>
+
+<body>
+	<!--<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+		Logged user: <span sec:authentication="name">Bob</span> |
+		Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> |
+		
+		<form th:action="@{/logout}" method="post" style="display:inline"><input type="submit" value="Logout" /></form>
+		
+	</div>-->
+	<div class="flex items-center min-h-screen bg-gray-50">
+		<div class="flex-1 h-full max-w-6xl mx-auto bg-white rounded-lg shadow-xl">
+			<div class="flex flex-col md:flex-row">
+				<div class="h-32 md:h-auto md:w-full">
+					<img class="object-cover w-full h-full"
+						src="https://static.wixstatic.com/media/2a334e_8b7661114e02400d9c3f47b601fff9f6~mv2.jpg/v1/fill/w_800,h_478,al_c,q_85,enc_auto/o-que-%C3%A9-melhoria-de-processos.jpg"
+						alt="img" />
+				</div>
+				<div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+					<div class="w-full">
+						<div class="flex justify-center">
+
+						</div>
+						<h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
+							Bienvenido al Sistema de Automatizacion Contable
+						</h1>
+						<div>
+
+						</div>
+						<div>
+
+						</div>
+						<p class="mt-4">
+
+						</p>
+
+
+						<a th:href="@{'/user/A/index'}"
+							class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
+							>
+							Iniciar Sesión
+						</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
